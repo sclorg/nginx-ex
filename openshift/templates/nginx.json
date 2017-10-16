@@ -2,21 +2,21 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "httpd-example",
+    "name": "nginx-example",
     "annotations": {
-      "openshift.io/display-name": "Apache HTTP Server",
-      "description": "An example Apache HTTP Server (httpd) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/httpd-ex/blob/master/README.md.",
-      "tags": "quickstart,httpd",
-      "iconClass": "icon-apache",
-      "template.openshift.io/long-description": "This template defines resources needed to develop a static application served by Apache HTTP Server (httpd), including a build configuration and application deployment configuration.",
+      "openshift.io/display-name": "Nginx HTTP server and a reverse proxy",
+      "description": "An example Nginx HTTP server and a reverse proxy (nginx) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
+      "tags": "quickstart,nginx",
+      "iconClass": "icon-nginx",
+      "template.openshift.io/long-description": "This template defines resources needed to develop a static application served by Nginx HTTP server and a reverse proxy (nginx), including a build configuration and application deployment configuration.",
       "template.openshift.io/provider-display-name": "Red Hat, Inc.",
-      "template.openshift.io/documentation-url": "https://github.com/openshift/httpd-ex",
+      "template.openshift.io/documentation-url": "https://github.com/sclorg/nginx-ex",
       "template.openshift.io/support-url": "https://access.redhat.com"
     }
   },
-  "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/httpd-ex/blob/master/README.md.",
+  "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
   "labels": {
-    "template": "httpd-example"
+    "template": "nginx-example"
   },
   "objects": [
     {
@@ -93,7 +93,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "httpd:2.4"
+              "name": "nginx:1.12"
             }
           }
         },
@@ -145,7 +145,7 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "httpd-example"
+                "nginx-example"
               ],
               "from": {
                 "kind": "ImageStreamTag",
@@ -171,7 +171,7 @@
           "spec": {
             "containers": [
               {
-                "name": "httpd-example",
+                "name": "nginx-example",
                 "image": " ",
                 "ports": [
                   {
@@ -219,7 +219,7 @@
       "displayName": "Name",
       "description": "The name assigned to all of the frontend objects defined in this template.",
       "required": true,
-      "value": "httpd-example"
+      "value": "nginx-example"
     },
     {
       "name": "NAMESPACE",
@@ -240,7 +240,7 @@
       "displayName": "Git Repository URL",
       "description": "The URL of the repository with your application source code.",
       "required": true,
-      "value": "https://github.com/openshift/httpd-ex.git"
+      "value": "https://github.com/sclorg/nginx-ex.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
@@ -255,7 +255,7 @@
     {
       "name": "APPLICATION_DOMAIN",
       "displayName": "Application Hostname",
-      "description": "The exposed hostname that will route to the httpd service, if left blank a value will be defaulted.",
+      "description": "The exposed hostname that will route to the nginx service, if left blank a value will be defaulted.",
       "value": ""
     },
     {
