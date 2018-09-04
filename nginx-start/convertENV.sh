@@ -7,5 +7,5 @@ export NAMESERVER=$(echo $(awk 'BEGIN{ORS=" "} $1=="nameserver" {print $2}' /etc
 envsubst < ${NGINX_CONFIGURATION_PATH}/upstream.conf > ${NGINX_CONFIGURATION_PATH}/upstream.conf
 envsubst '${OAUTH_AUTH_SERVER},${NAMESERVER}' < ${NGINX_DEFAULT_CONF_PATH}/user-redirect.conf > ${NGINX_DEFAULT_CONF_PATH}/user-redirect.conf
 envsubst '${DEV_EMAILS_WITH_LOCATIONS},${DEV_EMAILS_WITH_LOCATIONS_IDE}' < ${NGINX_CONFIGURATION_PATH}/split_traffic.conf > ${NGINX_CONFIGURATION_PATH}/split_traffic.conf
-
+echo 0 > /tmp/health
 echo "Finished convertENV.sh"
