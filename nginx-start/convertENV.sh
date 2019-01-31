@@ -6,6 +6,7 @@ export NAMESERVER=$(echo $(awk 'BEGIN{ORS=" "} $1=="nameserver" {print $2}' /etc
 #echo "export OAUTH_AUTH_SERVER=${OAUTH_AUTH_SERVER}" >> ${HOME}/.profile
 envsubst '${APPWEB1_ADDR},${APPWEB2_ADDR},${APPWEB3_ADDR},${APPWEB4_ADDR}'< ${NGINX_CONFIGURATION_PATH}/upstream.conf > ${NGINX_CONFIGURATION_PATH}/upstream.conf
 #envsubst '${OAUTH_AUTH_SERVER},${NAMESERVER}' < ${NGINX_DEFAULT_CONF_PATH}/user-redirect.conf > ${NGINX_DEFAULT_CONF_PATH}/user-redirect.conf
-envsubst '${AUTH_HOST},${DEV_EMAILS_WITH_LOCATIONS},${DEV_EMAILS_WITH_LOCATIONS_IDE}' < ${NGINX_CONFIGURATION_PATH}/split_traffic.conf > ${NGINX_CONFIGURATION_PATH}/split_traffic.conf
+envsubst '${DEV_EMAILS_WITH_LOCATIONS},${DEV_EMAILS_WITH_LOCATIONS_IDE}' < ${NGINX_CONFIGURATION_PATH}/split_traffic.conf > ${NGINX_CONFIGURATION_PATH}/split_traffic.conf
+envsubst '${AUTH_HOST},${REMOTE_WEBAPP_HOST}' < ${NGINX_CONFIGURATION_PATH}/subdomains.conf > ${NGINX_CONFIGURATION_PATH}/subdomains.conf
 echo 1 > /tmp/health
 echo "Finished convertENV.sh"
