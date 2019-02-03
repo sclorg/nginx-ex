@@ -1,0 +1,25 @@
+{
+  "name": "nginx",
+  "version": "1.0.0",
+  "description": "Nginx Backend",
+  "main": "index.js",
+  "scripts": {
+    "build": "node index.js build",
+    "start": "node index.js ",
+    "test": "echo Todo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devcomb/nginx-ex.git"
+  },
+  "author": "james@devcomb.com",
+  "license": "EPL-2.0",
+  "bugs": {
+    "url": "https://github.com/devcomb/nginx-ex/issues"
+  },
+  "homepage": "https://github.com/devcomb/nginx-ex#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "underscore": "^1.9.1"
+  }
+}
