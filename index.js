@@ -23,22 +23,26 @@ var options = {
 };
 
 app.get('/', function (req, res) {
+  res.status(200).send('ok');
+});
+
+app.get('/test/', function (req, res) {
   if(req.headers['x-subject']){
-    https.get(options, (res) => {
+    https.get(options, (resInternal) => {
         //console.log('statusCode:', res.statusCode);
         //console.log('headers:', res.headers);
         let body = '';
-        console.log("statusCode: ", res.statusCode); // <======= Here's the status code
-        console.log("headers: ", res.headers);
-        if(res.statusCode==200){
-            res.on('data', (chunk) => {
+        console.log("statusCode: ", resInternal.statusCode); // <======= Here's the status code
+        console.log("headers: ", resInternal.headers);
+        if(resInternal.statusCode==200){
+            resInternal.on('data', (chunk) => {
                 try {
                     body += chunk;
                 } catch(err) {
                     console.error(err)
                 }
             });
-            res.on('end', () => {
+            resInternal.on('end', () => {
                 try {
                 const data = JSON.parse(body);
                 if(_.contains(_.allKeys(data),"subjects") ){
@@ -46,6 +50,7 @@ app.get('/', function (req, res) {
                     var list = _.where(data.subjects, {name: req.headers['x-subject']});
                     console.log('list: ', list);
                 }
+                res.status(200).send('ok');
                 // write back something interesting to the user:
                 //   res.write(typeof data);
                 //   res.end();
@@ -58,54 +63,57 @@ app.get('/', function (req, res) {
             });
         }
         else{
-            console.error("statusCode: ", res.statusCode); // <======= Here's the status code
-            console.error("headers: ", res.headers);
+            console.error("statusCode: ", resInternal.statusCode); // <======= Here's the status code
+            console.error("headers: ", resInternal.headers);
         }
         }).on('error', (e) => {
         console.error(e);
         });
   }
 });
-app.listen(8080, function () {
+
+
+var server = app.listen(8080, function () {
   console.log('Example app listening on port 8080!');
-  
 });
 
-const optionsTest = {
-    headers: {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${sa_token}`,
-        'X-Subject': `james@devcomb.com`
-    },
-  hostname: '0.0.0.0',
-  port: 8080,
-  path: `/`,
-  method: 'GET'
-};
+module.exports = server;
 
-http.get(optionsTest, (res) => {
-    let body = '';
-    console.log("statusCode: ", res.statusCode);
-    console.log("headers: ", res.headers);
-    if(res.statusCode==200){
-        res.on('data', (chunk) => {
-            try {
-                body += chunk;
-            } catch(err) {
-                console.error(err)
-            }
-        });
-        res.on('end', () => {
-            console.log('body:', body);
-        });
-    }
-    else{
-        console.error("statusCode: ", res.statusCode);
-        console.error("headers: ", res.headers);
-    }
-}).on('error', (e) => {
-    console.error(e);
-});
+// const optionsTest = {
+//     headers: {
+//         'Accept': 'application/json',
+//         'Authorization': `Bearer ${sa_token}`,
+//         'X-Subject': `james@devcomb.com`
+//     },
+//   hostname: '0.0.0.0',
+//   port: 8080,
+//   path: `/`,
+//   method: 'GET'
+// };
+
+// http.get(optionsTest, (res) => {
+//     let body = '';
+//     console.log("statusCode: ", res.statusCode);
+//     console.log("headers: ", res.headers);
+//     if(res.statusCode==200){
+//         res.on('data', (chunk) => {
+//             try {
+//                 body += chunk;
+//             } catch(err) {
+//                 console.error(err)
+//             }
+//         });
+//         res.on('end', () => {
+//             console.log('body:', body);
+//         });
+//     }
+//     else{
+//         console.error("statusCode: ", res.statusCode);
+//         console.error("headers: ", res.headers);
+//     }
+// }).on('error', (e) => {
+//     console.error(e);
+// });
 
 
 

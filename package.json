@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node index.js build",
     "start": "node index.js ",
-    "test": "echo Todo"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,10 @@
   "homepage": "https://github.com/devcomb/nginx-ex#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "supertest": "^3.4.2",
     "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
