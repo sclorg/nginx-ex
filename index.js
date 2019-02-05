@@ -16,6 +16,16 @@ var options;
 //Key pair lookup with ei [{"pods":"get"},{"pods":"list"},{"pods":"watch"}] - Resource pods and verbs get,list,watch
 var required_role_resources = process.env["REQUIRED_ROLE_RESOURCES"];
 
+//Enterprise version should have ability to use https://console.example.com:8443/apis/user.openshift.io/v1/groups
+//This will help intergrate LDAP and other system wide group authorization
+//oc adm policy who-can get groups
+//CLI command = oc get groups -o json --loglevel=9
+//oc create clusterrole cluster-group-reader --verb=get,list,watch --resource=groups.user.openshift.io
+//The following user and/or group and/or serviceaccount can be set
+//oc create clusterrolebinding cluster-group-reader --clusterrole=cluster-group-reader --user=foo@bar.com --group=bargroup --serviceaccount=foosa
+//Test by using user/group/sa token
+//oc get groups -o json --loglevel=9 --token=<token>
+
 function setOptions(namespace,sa_token){
     options = {
         headers: {
