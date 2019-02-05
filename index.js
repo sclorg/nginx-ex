@@ -9,6 +9,8 @@ const http = require('http');
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 var role_binding = process.env["ROLE_BINDING"];
 var sa_token = process.env["SA_TOKEN"];
+var os_console_host = process.env["OS_CONSOLE_HOST"];
+var os_console_port = process.env["OS_CONSOLE_PORT"];
 
 
 var options = {
@@ -16,8 +18,8 @@ var options = {
         'Accept': 'application/json',
         'Authorization': `Bearer ${sa_token}`
     },
-  hostname: 'console.devcomb.com',
-  port: 8443,
+  hostname: os_console_host,
+  port: os_console_port,
   path: `/apis/authorization.openshift.io/v1/namespaces/console/rolebindings/${role_binding}`,
   method: 'GET'
 };
