@@ -11,6 +11,11 @@ var role_binding = process.env["ROLE_BINDING"];
 var sa_token = process.env["SA_TOKEN"];
 var os_console_host = process.env["OS_CONSOLE_HOST"];
 var os_console_port = process.env["OS_CONSOLE_PORT"];
+var namespace = process.env["NAMESPACE"];
+
+//Todo ability to check that role that role has correct access to required resources
+//Key pair lookup with ei [{"pods":"get"},{"pods":"list"},{"pods":"watch"}] - Resource pods and verbs get,list,watch
+var required_role_resources = process.env["REQUIRED_ROLE_RESOURCES"];
 
 
 var options = {
@@ -20,7 +25,7 @@ var options = {
     },
   hostname: os_console_host,
   port: os_console_port,
-  path: `/apis/authorization.openshift.io/v1/namespaces/console/rolebindings/${role_binding}`,
+  path: `/apis/authorization.openshift.io/v1/namespaces/${namespace}/rolebindings/${role_binding}`,
   method: 'GET'
 };
 
@@ -29,13 +34,13 @@ app.get('/', function (req, res) {
 });
 
 app.get('/test/', function (req, res) {
+  var subject = req.headers['x-subject'];
+  var group = req.headers['x-subject-group'];
+  
   if(req.headers['x-subject']){
+    
     https.get(options, (resInternal) => {
-        //console.log('statusCode:', res.statusCode);
-        //console.log('headers:', res.headers);
         let body = '';
-        console.log("statusCode: ", resInternal.statusCode); // <======= Here's the status code
-        console.log("headers: ", resInternal.headers);
         if(resInternal.statusCode==200){
             resInternal.on('data', (chunk) => {
                 try {
@@ -46,12 +51,17 @@ app.get('/test/', function (req, res) {
             });
             resInternal.on('end', () => {
                 try {
-                const data = JSON.parse(body);
-                if(_.contains(_.allKeys(data),"subjects") ){
-                    console.log('body:', body);
-                    var list = _.where(data.subjects, {name: req.headers['x-subject']});
-                    console.log('list: ', list);
-                }
+                    const data = JSON.parse(body);
+                    _.each(data.items,(value, key, list) => {
+                        //value.groupNames
+                        if(value.userNames){
+                            if(_.contains(value.userNames,subject) && (_.contains(value.groupNames,group) || ! group ) ){
+                                console.log('Found:', value.userNames);
+                                console.log('Role:', value.roleRef.name);
+                            }
+                        }
+                    }
+                )
                 res.status(200).send('ok');
                 // write back something interesting to the user:
                 //   res.write(typeof data);
@@ -80,43 +90,3 @@ var server = app.listen(8080, function () {
 });
 
 module.exports = server;
-
-// const optionsTest = {
-//     headers: {
-//         'Accept': 'application/json',
-//         'Authorization': `Bearer ${sa_token}`,
-//         'X-Subject': `james@devcomb.com`
-//     },
-//   hostname: '0.0.0.0',
-//   port: 8080,
-//   path: `/`,
-//   method: 'GET'
-// };
-
-// http.get(optionsTest, (res) => {
-//     let body = '';
-//     console.log("statusCode: ", res.statusCode);
-//     console.log("headers: ", res.headers);
-//     if(res.statusCode==200){
-//         res.on('data', (chunk) => {
-//             try {
-//                 body += chunk;
-//             } catch(err) {
-//                 console.error(err)
-//             }
-//         });
-//         res.on('end', () => {
-//             console.log('body:', body);
-//         });
-//     }
-//     else{
-//         console.error("statusCode: ", res.statusCode);
-//         console.error("headers: ", res.headers);
-//     }
-// }).on('error', (e) => {
-//     console.error(e);
-// });
-
-
-
-

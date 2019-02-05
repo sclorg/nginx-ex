@@ -23,6 +23,7 @@ describe('loading express', function () {
     .set('Accept','application/json')
     .set('Authorization', `Bearer ${sa_token}`)
     .set('X-Subject', `james@devcomb.com`)
+    .set('X-Subject-Group', `developer`)
     .expect(200, done);
   });
   it('404 everything else', function testPath(done) {
