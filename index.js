@@ -78,7 +78,6 @@ app.get('/', function (req, res) {
                         }
                     )
                     if(authorized){
-                        console.log("body: ", body);
                         res.status(200).send('ok');
                     }
                     else{
