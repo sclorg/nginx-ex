@@ -78,6 +78,7 @@ app.get('/', function (req, res) {
                         }
                     )
                     if(authorized){
+                        console.log("body: ", body);
                         res.status(200).send('ok');
                     }
                     else{
@@ -103,8 +104,12 @@ app.get('/', function (req, res) {
                 // console.error("headers: ", resInternal.headers);
             }
             }).on('error', (e) => {
+                res.statusCode = 400;
                 if(e.code === 'ENOTFOUND'){
                     res.statusCode = 404;
+                }
+                if(e.code === 'ECONNREFUSED'){
+                    res.statusCode = 403;
                 }
                 res.end(`Error: ${e.message}`);
             });

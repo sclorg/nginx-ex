@@ -99,6 +99,18 @@ describe('Checking Authorization Backend Helper App:', function () {
         .set('X-Namespace', `${namespace}`)
         .expect(404, done);
   });
+  it(`responds to / for wrong port`, function (done) {
+    request(server)
+        .get('/')
+        .set('Accept','application/json')
+        .set('Authorization', sa_token)
+        .set('X-Subject', subject)
+        .set('X-Subject-Group', ``)
+        .set('X-Oauth-Host', host)
+        .set('X-Oauth-Port', '1')
+        .set('X-Namespace', `${namespace}`)
+        .expect(403, done);
+  });
   it('responds to / for bad "Accept" header variable not set to "json"', function (done) {
     request(server)
         .get('/')
