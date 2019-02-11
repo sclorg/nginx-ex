@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node index.js build",
     "start": "node index.js ",
-    "test": "./node_modules/.bin/mocha test.js"
+    "test": "NODE_MODE=test ./node_modules/.bin/mocha test.js"
   },
   "repository": {
     "type": "git",

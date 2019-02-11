@@ -7,6 +7,7 @@ const https = require('https');
 const http = require('http');
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+var mode = process.env["NODE_MODE"];
 
 //Todo ability to check that role that role has correct access to required resources
 //Key pair lookup with ei [{"pods":"get"},{"pods":"list"},{"pods":"watch"}] - Resource pods and verbs get,list,watch
@@ -139,7 +140,10 @@ function checkHeaders(headers,res){
 }
 
 var server = app.listen(8080, function () {
-  console.log('App listening on port 8080.');
+ mode = process.env["NODE_MODE"];
+    if(mode !== 'test'){
+        console.log('App listening on port 8080.');
+    }  
 });
 
 module.exports = server;
