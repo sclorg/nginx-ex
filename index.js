@@ -140,7 +140,6 @@ function checkHeaders(headers,res){
 }
 
 var server = app.listen(8080, function () {
- mode = process.env["NODE_MODE"];
     if(mode !== 'test'){
         console.log('App listening on port 8080.');
     }  
