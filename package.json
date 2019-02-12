@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node index.js build",
     "start": "node index.js ",
-    "test": "NODE_MODE=test ./node_modules/.bin/mocha test.js"
+    "test": "NODE_MODE=test ./node_modules/.bin/mocha test.js",
+    "externaltest": "NODE_MODE=test ./node_modules/.bin/mocha externalTest.js"
   },
   "repository": {
     "type": "git",
