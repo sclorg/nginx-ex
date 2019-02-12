@@ -3,7 +3,8 @@ var request = require('supertest');
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 var external_auth_uri = process.env["EXTERNAL_AUTH_URI"];
 if(! external_auth_uri){
-    external_auth_uri = "https://nodejs-theia-development-oojlwfhjxphwxrls-console.devcomb.com";
+    //external_auth_uri = "https://nodejs-theia-development-oojlwfhjxphwxrls-console.devcomb.com";
+    external_auth_uri = "https://oauth-interface-nginx-oauth-interface-with-openshift.devcomb.com";
 }
 
 var sa_token = 'Bearer '+process.env["SA_TOKEN"];
