@@ -56,7 +56,6 @@ app.get('/', function (req, res) {
         return;
     }
     var headers = { 
-        //Maybe a security risk setting host and post from external host. Remove or add white list.
         os_console_host: req.headers['x-oauth-host'],
         os_console_port: req.headers['x-oauth-port'],
         subject: req.headers['x-subject'],

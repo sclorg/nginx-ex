@@ -23,7 +23,6 @@ describe('Checking Authorization Backend Helper App Through HTTPS Route Address:
         .set('Authorization', sa_token)
         .set('X-Subject', subject)
         .set('X-Subject-Group', ``)
-        //X-Oauth-Host and X-Oauth-Port may not be safe for authorizing server. Maybe check with white list to allow.
         .set('X-Oauth-Host', host)
         .set('X-Oauth-Port', port)
         .set('X-Namespace', `${namespace}`)
