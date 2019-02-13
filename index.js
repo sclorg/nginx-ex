@@ -2,6 +2,18 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var _ = require("underscore");
+var hosts_whitelisted = process.env["HOSTS_WHITELISTED"];
+if(hosts_whitelisted){
+    hosts_whitelisted=hosts_whitelisted.split(",");
+}else{
+    hosts_whitelisted = ["console.devcomb.com"];
+}
+var ports_whitelisted = process.env["PORTS_WHITELISTED"];
+if(ports_whitelisted){
+    ports_whitelisted=ports_whitelisted.split(",");
+}else{
+    ports_whitelisted = ["8443"];
+}
 
 const https = require('https');
 const http = require('http');
@@ -44,6 +56,7 @@ app.get('/', function (req, res) {
         return;
     }
     var headers = { 
+        //Maybe a security risk setting host and post from external host. Remove or add white list.
         os_console_host: req.headers['x-oauth-host'],
         os_console_port: req.headers['x-oauth-port'],
         subject: req.headers['x-subject'],
@@ -136,6 +149,17 @@ function checkHeaders(headers,res){
         keysStr = keysStr.slice(0, -1);
         res.end(`Message: Header variable(s) '${keysStr}' is undefined.`);
     }
+    if(!hosts_whitelisted.includes(headers.os_console_host) ){
+        res.statusCode = 404;
+        res.end(`Message: Header variable(s) 'x-oauth-host' is not whitelisted.`);
+        headersSet=false;
+    }
+    if(!ports_whitelisted.includes(headers.os_console_port) ){
+        res.statusCode = 403;
+        res.end(`Message: Header variable(s) 'x-oauth-port' is not whitelisted.`);
+        headersSet=false;
+    }
+    
     return headersSet;
 }
 
