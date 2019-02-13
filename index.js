@@ -63,9 +63,8 @@ app.get('/', function (req, res) {
         sa_token: req.headers['authorization'],
         namespace: req.headers['x-namespace']
     };
-
     // console.log("statusCode: ", req.statusCode); // <======= Here's the status code
-    // console.log("headers: ", req.headers);
+    console.log("headers: ", req.headers);
     if(checkHeaders(headers,res)){
         var options = setOptions(headers);
         https.get(options, (resInternal) => {
@@ -132,13 +131,19 @@ app.get('/', function (req, res) {
 function checkHeaders(headers,res){
     var headersSet = true;
     var badkeys={};
-    for(key in headers){
-        //Checks if headers are empty or contain no values
-        if((headers[key] === "" || ! headers[key] )  && ! (key === "group") ){
-            headersSet = false;
-            badkeys[key] = headers[key];
+    var req_headers = ['os_console_host','os_console_port','subject','sa_token','namespace'];
+    var keys = _.keys(headers);
+    console.log("keys: ", keys);
+    _.each(keys,function(key) { 
+        console.log("key: ", key);
+        if(_.contains(req_headers,key)){
+            if((headers[key] === "" || ! headers[key] ) ){
+                headersSet = false;
+                badkeys[key] = headers[key];
+            }
         }
-    }
+    });
+
     if(!headersSet){
         res.statusCode = 400;
         var keysStr='';
