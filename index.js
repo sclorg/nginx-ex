@@ -56,16 +56,16 @@ app.get('/', function (req, res) {
         return;
     }
     var headers = { 
-        // os_console_host: req.headers['x-oauth-host'],
-        // os_console_port: req.headers['x-oauth-port'],
-        os_console_host: 'console.devcomb.com',
-        os_console_port: '8443',
+        os_console_host: req.headers['x-oauth-host'],
+        os_console_port: req.headers['x-oauth-port'],
+        //os_console_host: 'console.devcomb.com',
+        //os_console_port: '8443',
         subject: req.headers['x-subject'],
         group: req.headers['x-subject-group'],
-        //sa_token: req.headers['authorization'],
-        sa_token: 'Bearer '+process.env["SA_TOKEN"],
-        // namespace: req.headers['x-namespace']
-        namespace: 'console',
+        sa_token: req.headers['authorization'],
+        // sa_token: 'Bearer '+process.env["SA_TOKEN"],
+        namespace: req.headers['x-namespace']
+        // namespace: 'console',
     };
     // console.log("statusCode: ", req.statusCode); // <======= Here's the status code
     console.log("headers: ", req.headers);
