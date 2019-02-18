@@ -6,13 +6,15 @@ var hosts_whitelisted = process.env["HOSTS_WHITELISTED"];
 if(hosts_whitelisted){
     hosts_whitelisted=hosts_whitelisted.split(",");
 }else{
-    hosts_whitelisted = ["console.devcomb.com"];
+    console.error('Error: Environment variable HOSTS_WHITELISTED must be set.');
+    process.exit(1);
 }
 var ports_whitelisted = process.env["PORTS_WHITELISTED"];
 if(ports_whitelisted){
     ports_whitelisted=ports_whitelisted.split(",");
 }else{
-    ports_whitelisted = ["8443"];
+    console.error('Error: Environment variable PORTS_WHITELISTED must be set.');
+    process.exit(1);
 }
 
 const https = require('https');
@@ -21,7 +23,7 @@ const http = require('http');
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 var mode = process.env["NODE_MODE"];
 
-//Todo ability to check that role that role has correct access to required resources
+//Todo ability to check that role has correct access to required resources
 //Key pair lookup with ei [{"pods":"get"},{"pods":"list"},{"pods":"watch"}] - Resource pods and verbs get,list,watch
 var required_role_resources = process.env["REQUIRED_ROLE_RESOURCES"];
 
@@ -58,12 +60,9 @@ app.get('/', function (req, res) {
     var headers = { 
         os_console_host: req.headers['x-oauth-host'],
         os_console_port: req.headers['x-oauth-port'],
-        //os_console_host: 'console.devcomb.com',
-        //os_console_port: '8443',
         subject: req.headers['x-subject'],
         group: req.headers['x-subject-group'],
         sa_token: req.headers['authorization'],
-        // sa_token: 'Bearer '+process.env["SA_TOKEN"],
         namespace: req.headers['x-namespace']
         // namespace: 'console',
     };
