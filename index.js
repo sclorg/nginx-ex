@@ -68,7 +68,7 @@ app.get('/', function (req, res) {
         // namespace: 'console',
     };
     // console.log("statusCode: ", req.statusCode); // <======= Here's the status code
-    console.log("headers: ", req.headers);
+    // console.log("headers: ", req.headers);
     if(checkHeaders(headers,res)){
         var options = setOptions(headers);
         https.get(options, (resInternal) => {
@@ -137,9 +137,9 @@ function checkHeaders(headers,res){
     var badkeys={};
     var req_headers = ['os_console_host','os_console_port','subject','sa_token','namespace'];
     var keys = _.keys(headers);
-    console.log("keys: ", keys);
+    // console.log("keys: ", keys);
     _.each(keys,function(key) { 
-        console.log("key: ", key);
+        // console.log("key: ", key);
         if(_.contains(req_headers,key)){
             if((headers[key] === "" || ! headers[key] ) ){
                 headersSet = false;
