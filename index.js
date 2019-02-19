@@ -64,7 +64,6 @@ app.get('/', function (req, res) {
         group: req.headers['x-subject-group'],
         sa_token: req.headers['authorization'],
         namespace: req.headers['x-namespace']
-        // namespace: 'console',
     };
     // console.log("statusCode: ", req.statusCode); // <======= Here's the status code
     // console.log("headers: ", req.headers);
@@ -136,9 +135,9 @@ function checkHeaders(headers,res){
     var badkeys={};
     var req_headers = ['os_console_host','os_console_port','subject','sa_token','namespace'];
     var keys = _.keys(headers);
-    // console.log("keys: ", keys);
     _.each(keys,function(key) { 
         // console.log("key: ", key);
+        // console.log(`headers[${key}]: `, headers[key]);
         if(_.contains(req_headers,key)){
             if((headers[key] === "" || ! headers[key] ) ){
                 headersSet = false;
