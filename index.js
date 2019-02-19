@@ -99,7 +99,7 @@ app.get('/', function (req, res) {
                         res.status(200).send('ok');
                     }
                     else{
-                        res.status(401).send('User and/or Group not authorized.');
+                        res.status(403).send('User and/or Group not authorized.');
                     }
                     } catch (er) {
                     //   // uh oh! bad json!
