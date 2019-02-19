@@ -92,6 +92,7 @@ app.get('/', function (req, res) {
                         }
                     )
                     if(authorized){
+                        res.setHeader("X-test","test123");
                         res.status(200).send('ok');
                     }
                     else{
