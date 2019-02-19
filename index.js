@@ -81,18 +81,20 @@ app.get('/', function (req, res) {
                 });
                 resInternal.on('end', () => {
                     var authorized = false;
+                    let groups = '';
                     try {
                         const data = JSON.parse(body);
                         _.each(data.items,(value, key, list) => {
                             if(value.userNames){
-                                if(_.contains(value.userNames,headers.subject) && (_.contains(value.groupNames,headers.group) || ! headers.group ) ){                                
+                                if(_.contains(value.userNames,headers.subject) && (_.contains(value.groupNames,headers.group) || ! headers.group ) ){ 
+                                    groups = value.groupNames;
                                     authorized = true;
                                 }
                             }
                         }
                     )
                     if(authorized){
-                        res.setHeader("X-test","test123");
+                        res.setHeader("X-groups",groups);
                         res.status(200).send('ok');
                     }
                     else{
