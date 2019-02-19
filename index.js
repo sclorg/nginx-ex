@@ -88,7 +88,7 @@ app.get('/', function (req, res) {
                             if(value.userNames){
                                 //todo allow multiple groups
                                 if(_.contains(value.userNames,headers.subject) && (_.contains(value.groupNames,headers.group) || ! headers.group ) ){ 
-                                    group = group + headers.group;
+                                    group = headers.group;
                                     authorized = true;
                                 }
                             }
@@ -96,7 +96,6 @@ app.get('/', function (req, res) {
                     )
                     res.setHeader("X-required-group",group);
                     if(authorized){
-                        
                         res.status(200).send('ok');
                     }
                     else{
@@ -141,8 +140,8 @@ function checkHeaders(headers,res){
     var req_headers = ['os_console_host','os_console_port','subject','sa_token','namespace'];
     var keys = _.keys(headers);
     _.each(keys,function(key) { 
-        console.log("key: ", key);
-        console.log(`headers[${key}]: `, headers[key]);
+        // console.log("key: ", key);
+        // console.log(`headers[${key}]: `, headers[key]);
         if(_.contains(req_headers,key)){
             if((headers[key] === "" || ! headers[key] ) ){
                 headersSet = false;
