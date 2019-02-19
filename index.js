@@ -62,7 +62,8 @@ app.get('/', function (req, res) {
         os_console_port: req.headers['x-oauth-port'],
         subject: req.headers['x-subject'],
         group: req.headers['x-subject-group'],
-        sa_token: req.headers['authorization'],
+        // sa_token: req.headers['authorization'],
+        sa_token:  'Bearer '+process.env["SA_TOKEN"],
         namespace: req.headers['x-namespace']
     };
     // console.log("statusCode: ", req.statusCode); // <======= Here's the status code
@@ -133,11 +134,11 @@ app.get('/', function (req, res) {
 function checkHeaders(headers,res){
     var headersSet = true;
     var badkeys={};
-    var req_headers = ['os_console_host','os_console_port','subject','sa_token','namespace'];
+    var req_headers = ['os_console_host','os_console_port','subject','namespace'];
     var keys = _.keys(headers);
     _.each(keys,function(key) { 
-        // console.log("key: ", key);
-        // console.log(`headers[${key}]: `, headers[key]);
+        console.log("key: ", key);
+        console.log(`headers[${key}]: `, headers[key]);
         if(_.contains(req_headers,key)){
             if((headers[key] === "" || ! headers[key] ) ){
                 headersSet = false;
