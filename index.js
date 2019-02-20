@@ -107,6 +107,7 @@ app.get('/', function (req, res) {
                         res.statusCode = 400;
                         res.end(`error: ${er.message}`);
                     }
+                    console.log(`Response to client with IP address ${req.ip} with statusCode: ${res.statusCode} .`);
                 });
                 resInternal.on('socket', function (socket) {
                     socket.setTimeout(100);  
