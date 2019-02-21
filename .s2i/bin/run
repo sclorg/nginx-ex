@@ -3,9 +3,9 @@
 set -e
 
 if [ "$NAME" = "nginx" ]; then
-    echo "---> Installing nginx application source"
+    echo "---> Running nginx application source"
     /tmp/scripts/nginx-run
 else
-    echo "---> Installing web application source"
+    echo "---> Running web application source"
     /tmp/scripts/webapp-run
 fi
