@@ -1,1 +1,1 @@
-Need to set environment variable to NGINX_CONTAINER_SCRIPTS_PATH=/opt/app-root/src/nginx
+Need to set environment variable to NGINX_APP_ROOT=/opt/app-root/src/nginx
