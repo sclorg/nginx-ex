@@ -4,11 +4,8 @@ set -e
 
 if [ "$NAME" = "nginx" ]; then
     echo "---> Installing nginx application source"
-    echo "Current directory: " $(pwd)
     /tmp/scripts/nginx-run
-
 else
     echo "---> Installing web application source"
-    echo "Current directory: " $(pwd)
     /tmp/scripts/webapp-run
 fi

@@ -2,10 +2,13 @@
 
 set -e
 
+cp -Rf /tmp/src/.s2i/bin/*-assemble /tmp/scripts/
+cp -Rf /tmp/src/.s2i/bin/*run /tmp/scripts/
+
 if [ "$NAME" = "nginx" ]; then
     echo "---> Installing nginx application source"
-    /tmp/src/.s2i/bin/nginx-assemble
+    /tmp/scripts/nginx-assemble
 else
     echo "---> Installing web application source"
-    /tmp/src/.s2i/bin/nginx-assemble
+    /tmp/scripts/webapp-assemble
 fi
