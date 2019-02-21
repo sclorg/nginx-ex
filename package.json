@@ -20,6 +20,7 @@
   "homepage": "https://github.com/devcomb/nginx-ex#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "ssp-dos2unix-js": "^1.0.1",
     "supertest": "^3.4.2",
     "underscore": "^1.9.1"
   },
