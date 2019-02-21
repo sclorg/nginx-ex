@@ -4,9 +4,9 @@ set -e
 
 if [ "$NAME" = "nginx" ]; then
     echo "---> Installing nginx application source"
-    ./nginx-assemble
+    $(pwd)/nginx-assemble
 
 else
     echo "---> Installing web application source"
-    ./webapp-assemble
+    $(pwd)/webapp-assemble
 fi
