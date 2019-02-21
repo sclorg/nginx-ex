@@ -8,7 +8,7 @@ cp -Rf /tmp/src/nginx/. ./
 # Environment Variable for build and run container set to use $HOME directory(hardcoded) in DC:
 #STI_SCRIPTS_PATH="/opt/app-root/src/s2i"
 #STI_SCRIPTS_URL="image:///opt/app-root/src/s2i"
-chmod -Rf 755 ./s2i
+#chmod -Rf 755 ./s2i
 
 if [ -f ./nginx.conf ]; then
   echo "---> Copying nginx.conf configuration file..."
