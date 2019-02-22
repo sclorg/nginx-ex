@@ -4,7 +4,7 @@ set -e
 
 cp -Rf /tmp/src/.s2i/bin/subscripts/* /tmp/scripts/
 
-if [ "$NAME" = "nginx" && "${NGINX_CLIENT}" = "true" ]; then
+if [[ "$NAME" = "nginx" && "${NGINX_CLIENT}" = "true" ]]; then
     echo "---> Installing nginx client application source"
     cp -Rf /tmp/src/nginx-client/. ./
     /tmp/scripts/nginx-assemble
