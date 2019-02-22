@@ -3,7 +3,6 @@
 set -e
 
 echo "---> Installing application source"
-cp -Rf /tmp/src/nginx/. ./
 
 # Environment Variable for build and run container set to use $HOME directory(hardcoded) in DC:
 #STI_SCRIPTS_PATH="/opt/app-root/src/s2i"

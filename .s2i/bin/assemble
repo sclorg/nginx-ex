@@ -4,8 +4,15 @@ set -e
 
 cp -Rf /tmp/src/.s2i/bin/subscripts/* /tmp/scripts/
 
-if [ "$NAME" = "nginx" ]; then
-    echo "---> Installing nginx application source"
+exec /usr/libexec/s2i/assemble
+
+if [ "$NAME" = "nginx" && "${NGINX_CLIENT}" = "true" ]; then
+    echo "---> Installing nginx client application source"
+    cp -Rf /tmp/src/nginx-client/. ./
+    /tmp/scripts/nginx-assemble
+elif [ "$NAME" = "nginx" ]; then
+    echo "---> Installing nginx server application source"
+    cp -Rf /tmp/src/nginx-server/. ./
     /tmp/scripts/nginx-assemble
 else
     echo "---> Installing web application source"

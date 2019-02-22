@@ -6,5 +6,6 @@
       "**/node_modules/**": true
    },
    "navigator.autoReveal": false,
-   "git.decorations.colors": true
+   "git.decorations.colors": true,
+   "editor.wordWrap": "on"
 }
