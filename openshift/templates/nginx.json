@@ -231,9 +231,9 @@
     {
       "name": "NGINX_VERSION",
       "displayName": "NGINX Version",
-      "description": "Version of NGINX image to be used (1.16 by default).",
+      "description": "Version of NGINX image to be used (1.16-el8 by default).",
       "required": true,
-      "value": "1.16"
+      "value": "1.16-el8"
     },
     {
       "name": "MEMORY_LIMIT",
