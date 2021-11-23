@@ -21,7 +21,7 @@
   "objects": [
     {
       "kind": "Service",
-      "apiVersion": "core/v1",
+      "apiVersion": "v1",
       "metadata": {
         "name": "${NAME}",
         "annotations": {
