@@ -16,7 +16,8 @@
   },
   "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
   "labels": {
-    "template": "nginx-example"
+    "template": "nginx-example",
+    "app.openshift.io/runtime": "nginx"
   },
   "objects": [
     {
