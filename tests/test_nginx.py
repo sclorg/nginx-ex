@@ -9,7 +9,7 @@ test_dir = Path(os.path.abspath(os.path.dirname(__file__)))
 
 VERSION=os.getenv("SINGLE_VERSION")
 if not VERSION:
-    VERSION="1.20-ubi8"
+    VERSION="1.22-ubi8"
 
 class TestNginxExTemplate:
 
