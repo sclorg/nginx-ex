@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "1.20-ubi7", "1.20-ubi8", "1.22-ubi8", "1.20-ubi9", "1.22-ubi9" ]
+        version: [ "1.20-ubi7", "1.22-ubi8", "1.20-ubi9", "1.22-ubi9" ]
 
     if: |
       github.event.issue.pull_request
