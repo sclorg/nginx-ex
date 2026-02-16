@@ -159,7 +159,7 @@
             "containers": [
               {
                 "name": "nginx-example",
-                "image": " ",
+                "image": "",
                 "ports": [
                   {
                     "containerPort": 8080
